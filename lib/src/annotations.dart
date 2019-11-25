@@ -70,7 +70,7 @@ class NuRouter {
 
 /// Annotation used to define a route.
 ///
-/// You can set a [routeName], [deepLink] and [pushMethods].
+/// You can set a [routeName], [path] and [pushMethods].
 ///
 /// This annotation is used by the code generator to identify a method as a
 /// route and start the analysis of code generation.
@@ -105,9 +105,9 @@ class NuRouter {
 /// generate a method for all types of push. You can specify which methods you
 /// need and avoid unused code.
 class NuRoute {
-  const NuRoute({this.deepLink, this.routeName, this.pushMethods});
+  const NuRoute({this.path, this.routeName, this.pushMethods});
 
-  final String deepLink;
+  final String path;
   final String routeName;
   final List<PushMethodType> pushMethods;
 }

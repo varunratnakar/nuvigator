@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nuvigator/nuvigator.dart';
+import 'package:nuvigator/src/log_observer.dart';
 
 import 'router.dart';
 
@@ -19,6 +20,7 @@ class Nuvigator<T extends Router> extends Navigator {
         super(
           observers: [
             HeroController(),
+            NuvigatorLogObserver(),
             ...observers,
             ...inheritableObservers.map((f) => f()),
           ],

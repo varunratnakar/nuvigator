@@ -39,8 +39,8 @@ String getRouteString(ClassElement routerElement, MethodElement element) {
 
   final routeName = nuRouteChecker
           .firstAnnotationOfExact(element)
-          ?.getField('routeName')
+          ?.getField('path')
           ?.toStringValue() ??
       element.name;
-  return '$prefix$routerName/$routeName';
+  return routeName;
 }

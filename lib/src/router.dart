@@ -59,17 +59,17 @@ abstract class BaseRouter implements Router {
     final thisDeepLinkPrefix = await getDeepLinkPrefix();
     final prefixRegex = RegExp('^$thisDeepLinkPrefix.*');
     if (prefixRegex.hasMatch(deepLink)) {
-      final screen = await _getRouteEntryForDeepLink(deepLink);
+      final screen =
+          await _getRouteEntryForDeepLink(deepLink, thisDeepLinkPrefix);
       if (screen != null) return screen;
       for (final Router router in routers) {
         final newDeepLink = deepLink.replaceFirst(thisDeepLinkPrefix, '');
         final subRouterEntry =
             await router.getRouteEntryForDeepLink(newDeepLink);
         if (subRouterEntry != null) {
-          final fullTemplate =
-              thisDeepLinkPrefix + (subRouterEntry.key.deepLink ?? '');
+          final fullTemplate = thisDeepLinkPrefix + subRouterEntry.key.path;
           return RouteEntry(
-            RouteDef(subRouterEntry.key.routeName, deepLink: fullTemplate),
+            RouteDef(fullTemplate),
             _wrapScreenBuilder(subRouterEntry.value),
           );
         }
@@ -89,18 +89,18 @@ abstract class BaseRouter implements Router {
     return screenBuilder(settings).wrapWith(screensWrapper);
   }
 
-  Future<RouteEntry> _getRouteEntryForDeepLink(String deepLink) async {
-    final deepLinkPrefix = await getDeepLinkPrefix();
+  Future<RouteEntry> _getRouteEntryForDeepLink(
+      String deepLink, String deepLinkPrefix) async {
     for (var screenEntry in screensMap.entries) {
       final routeDef = screenEntry.key;
       final screenBuilder = screenEntry.value;
-      final currentDeepLink = routeDef.deepLink;
+      final currentDeepLink = routeDef.path;
       if (currentDeepLink == null) continue;
       final fullTemplate = deepLinkPrefix + currentDeepLink;
       final regExp = pathToRegExp(fullTemplate);
       if (regExp.hasMatch(deepLink)) {
         return RouteEntry(
-          RouteDef(routeDef.routeName, deepLink: fullTemplate),
+          RouteDef(fullTemplate),
           _wrapScreenBuilder(screenBuilder),
         );
       }

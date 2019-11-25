@@ -4,13 +4,12 @@ import 'package:nuvigator/nuvigator.dart';
 class TestRouter extends BaseRouter {
   @override
   Map<RouteDef, ScreenRouteBuilder> get screensMap => {
-        RouteDef('firstScreen', deepLink: 'test/simple'): (_) => ScreenRoute(
+        RouteDef('firstScreen', path: 'test/simple'): (_) => ScreenRoute(
               builder: (sc) => null,
               debugKey: 'testRouterFirstScreen',
               screenType: materialScreenType,
             ),
-        RouteDef('secondScreen', deepLink: 'test/:id/params'): (_) =>
-            ScreenRoute(
+        RouteDef('secondScreen', path: 'test/:id/params'): (_) => ScreenRoute(
               builder: (sc) => null,
               debugKey: 'testRouterSecondScreen',
               screenType: materialScreenType,
@@ -34,8 +33,7 @@ class GroupTestRouter extends BaseRouter {
 
   @override
   Map<RouteDef, ScreenRouteBuilder> get screensMap => {
-        RouteDef('firstScreen', deepLink: 'route/test'): (settings) =>
-            ScreenRoute(
+        RouteDef('firstScreen', path: 'route/test'): (settings) => ScreenRoute(
               builder: (sc) => null,
               debugKey: 'groupRouterFirstScreen',
               screenType: cupertinoScreenType,

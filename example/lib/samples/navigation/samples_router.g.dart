@@ -7,9 +7,9 @@ part of 'samples_router.dart';
 // **************************************************************************
 
 class SamplesRoutes {
-  static const home = 'samples/home';
+  static const home = '/samples/home';
 
-  static const second = 'samples/second';
+  static const second = '/samples/second';
 }
 
 class SecondArgs {

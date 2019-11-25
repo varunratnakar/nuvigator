@@ -75,8 +75,6 @@ class BuilderLibrary extends BaseBuilder {
           nuRouteChecker.firstAnnotationOfExact(method);
       if (nuRouteFieldAnnotation != null) {
         final params = method.parameters.map((p) => p.name);
-        final deepLink =
-            nuRouteFieldAnnotation.getField('deepLink').toStringValue();
         final paramsStr = params.isEmpty
             ? ''
             : '${params.map((p) => "$p: args['$p']").join(",")}';
@@ -91,13 +89,8 @@ class BuilderLibrary extends BaseBuilder {
                   : 'final Map<String, Object> args = settings.arguments;') +
               'return router.${method.name}($paramsStr);'));
 
-        if (deepLink != null) {
-          screensMapBuffer.write(
-              'RouteDef(${removeRouterKey(className)}Routes.${method.name}, deepLink: \'$deepLink\'): ${screenRouteBuilder.accept(DartEmitter())},\n');
-        } else {
-          screensMapBuffer.write(
-              'RouteDef(${removeRouterKey(className)}Routes.${method.name}): ${screenRouteBuilder.accept(DartEmitter())},\n');
-        }
+        screensMapBuffer.write(
+            'RouteDef(${removeRouterKey(className)}Routes.${method.name}): ${screenRouteBuilder.accept(DartEmitter())},\n');
       }
     }
 

@@ -7,9 +7,9 @@ part of 'sample_one_router.dart';
 // **************************************************************************
 
 class SampleOneRoutes {
-  static const screenOne = 'sampleOne/screenOne';
+  static const screenOne = '/sampleOne/screenOne/:testId';
 
-  static const screenTwo = 'sampleOne/screenTwo';
+  static const screenTwo = '/sampleOne/screenTwo';
 }
 
 class ScreenOneArgs {
@@ -126,8 +126,7 @@ class SampleOneNavigation {
 Map<RouteDef, ScreenRouteBuilder> _$sampleOneScreensMap(
     SampleOneRouter router) {
   return {
-    RouteDef(SampleOneRoutes.screenOne, deepLink: '/screenOne/:testId'):
-        (RouteSettings settings) {
+    RouteDef(SampleOneRoutes.screenOne): (RouteSettings settings) {
       final Map<String, Object> args = settings.arguments;
       return router.screenOne(testId: args['testId']);
     },

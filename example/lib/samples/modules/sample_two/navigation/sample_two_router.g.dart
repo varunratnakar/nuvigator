@@ -7,9 +7,9 @@ part of 'sample_two_router.dart';
 // **************************************************************************
 
 class SampleTwoRoutes {
-  static const screenOne = 'sampleTwo/screenOne';
+  static const screenOne = 'screenOne';
 
-  static const screenTwo = 'sampleTwo/screenTwo';
+  static const screenTwo = 'screenTwo';
 }
 
 class ScreenOneArgs {

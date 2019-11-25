@@ -8,18 +8,17 @@ import 'screen_type.dart';
 typedef WrapperFn = Widget Function(BuildContext context, Widget child);
 
 class RouteDef {
-  RouteDef(this.routeName, {this.deepLink});
+  RouteDef(this.path);
 
-  final String routeName;
-  final String deepLink;
+  final String path;
 
   @override
   bool operator ==(Object other) {
-    return other is RouteDef && other.routeName == routeName;
+    return other is RouteDef && other.path == path;
   }
 
   @override
-  int get hashCode => routeName.hashCode;
+  int get hashCode => path.hashCode;
 }
 
 /// [T] is the possible return type of this Screen

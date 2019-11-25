@@ -87,19 +87,19 @@ class GlobalRouter implements Router {
       return null;
     }
 
-    final mapArguments = _extractParameters(url, routeEntry.key.deepLink);
+    final mapArguments = _extractParameters(url, routeEntry.key.path);
     if (isFromNative) {
       final route = _buildNativeRoute(routeEntry, mapArguments);
       return nuvigatorKey.currentState.push<T>(route);
     }
     return nuvigatorKey.currentState
-        .pushNamed<T>(routeEntry.key.routeName, arguments: mapArguments);
+        .pushNamed<T>(routeEntry.key.path, arguments: mapArguments);
   }
 
   Route _buildNativeRoute(
       RouteEntry routeEntry, Map<String, String> arguments) {
     final routeSettings = RouteSettings(
-      name: routeEntry.key.routeName,
+      name: routeEntry.key.path,
       isInitialRoute: false,
       arguments: arguments,
     );

@@ -10,11 +10,8 @@ import '../modules/sample_two/navigation/sample_two_router.dart';
 
 part 'samples_router.g.dart';
 
-@NuRouter()
+@NuRouter(routeNamePrefix: '/samples')
 class SamplesRouter extends BaseRouter {
-  @override
-  String get deepLinkPrefix => 'deepprefix';
-
   @override
   WrapperFn get screensWrapper => (BuildContext context, Widget child) {
         return Provider<SamplesBloc>.value(
@@ -23,12 +20,12 @@ class SamplesRouter extends BaseRouter {
         );
       };
 
-  @NuRoute()
+  @NuRoute(path: '/samples/home')
   ScreenRoute home() => ScreenRoute(
         builder: (context) => HomeScreen(context),
       );
 
-  @NuRoute()
+  @NuRoute(path: '/samples/second')
   FlowRoute<SampleTwoRouter, void> second({String testId}) => FlowRoute(
         nuvigator: Nuvigator(
           router: SampleTwoRouter(),

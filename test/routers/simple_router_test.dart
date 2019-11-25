@@ -44,7 +44,7 @@ void main() {
         RouteEntry(
           RouteDef(
             'firstScreen',
-            deepLink: 'test/simple',
+            path: 'test/simple',
           ),
           null,
         ),
@@ -57,7 +57,7 @@ void main() {
         RouteEntry(
           RouteDef(
             'secondScreen',
-            deepLink: 'test/:id/params',
+            path: 'test/:id/params',
           ),
           null,
         ),
@@ -69,7 +69,7 @@ void main() {
         await testRouterWPrefix
             .getRouteEntryForDeepLink('prefix/test/123/params'),
         RouteEntry(
-          RouteDef('secondScreen', deepLink: 'prefix/test/:id/params'),
+          RouteDef('secondScreen', path: 'prefix/test/:id/params'),
           null,
         ),
       );
