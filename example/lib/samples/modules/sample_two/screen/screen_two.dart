@@ -1,3 +1,4 @@
+import 'package:example/samples/modules/sample_one/navigation/sample_one_router.dart';
 import 'package:example/samples/navigation/samples_router.dart';
 import 'package:flutter/material.dart';
 import 'package:nuvigator/nuvigator.dart';
@@ -40,8 +41,7 @@ class ScreenTwo extends ScreenWidget {
           ),
           FlatButton(
               child: const Text('Go to sample one'),
-              onPressed: () => SamplesNavigation.of(context)
-                  .sampleOneNavigation
+              onPressed: () => SampleOneNavigation.of(context)
                   .toScreenOne(testId: 'FromSampleTwo')),
         ],
       ),

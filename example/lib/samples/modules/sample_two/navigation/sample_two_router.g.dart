@@ -7,9 +7,9 @@ part of 'sample_two_router.dart';
 // **************************************************************************
 
 class SampleTwoRoutes {
-  static const screenOne = 'screenOne';
+  static const screenOne = '/samples/sampleTwo/screenOne';
 
-  static const screenTwo = 'screenTwo';
+  static const screenTwo = '/samples/sampleTwo/screenTwo';
 }
 
 class ScreenOneArgs {
@@ -102,6 +102,21 @@ class SampleTwoNavigation {
 
   Future<String> pushReplacementToScreenTwo<TO extends Object>({TO result}) {
     return nuvigator.pushReplacementNamed<String, TO>(
+      SampleTwoRoutes.screenTwo,
+      result: result,
+    );
+  }
+
+  Future<String> pushAndRemoveUntilToScreenTwo<TO extends Object>(
+      {@required RoutePredicate predicate}) {
+    return nuvigator.pushNamedAndRemoveUntil<String>(
+      SampleTwoRoutes.screenTwo,
+      predicate,
+    );
+  }
+
+  Future<String> popAndPushToScreenTwo<TO extends Object>({TO result}) {
+    return nuvigator.popAndPushNamed<String, TO>(
       SampleTwoRoutes.screenTwo,
       result: result,
     );

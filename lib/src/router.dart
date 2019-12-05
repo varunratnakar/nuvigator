@@ -32,7 +32,7 @@ typedef ScreenRouteBuilder = ScreenRoute Function(RouteSettings settings);
 abstract class BaseRouter implements Router {
   List<Router> get routers => [];
 
-  Map<RouteDef, ScreenRouteBuilder> get screensMap;
+  Map<RouteDef, ScreenRouteBuilder> get screensMap => {};
 
   final String deepLinkPrefix = null;
 

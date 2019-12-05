@@ -42,5 +42,5 @@ String getRouteString(ClassElement routerElement, MethodElement element) {
           ?.getField('path')
           ?.toStringValue() ??
       element.name;
-  return routeName;
+  return '$prefix$routeName';
 }

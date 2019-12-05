@@ -7,9 +7,9 @@ part of 'samples_router.dart';
 // **************************************************************************
 
 class SamplesRoutes {
-  static const home = '/samples/home';
+  static const home = '/home';
 
-  static const second = '/samples/second';
+  static const second = '/second/:testId';
 }
 
 class SecondArgs {
@@ -122,7 +122,6 @@ class SamplesNavigation {
   }
 
   SampleTwoNavigation get sampleTwoNavigation => SampleTwoNavigation(nuvigator);
-  SampleOneNavigation get sampleOneNavigation => SampleOneNavigation(nuvigator);
 }
 
 Map<RouteDef, ScreenRouteBuilder> _$samplesScreensMap(SamplesRouter router) {
@@ -136,7 +135,3 @@ Map<RouteDef, ScreenRouteBuilder> _$samplesScreensMap(SamplesRouter router) {
     },
   };
 }
-
-List<Router> _$samplesRoutersList(SamplesRouter router) => [
-      router.sampleOneRouter,
-    ];

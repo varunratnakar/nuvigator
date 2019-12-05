@@ -6,17 +6,16 @@ import '../screen/screen_two.dart';
 
 part 'sample_one_router.g.dart';
 
-const screenOneDeepLink =
-    'exapp://deepPrefix/sampleOne/screenOne/id_1234_deepLink';
+const screenOneDeepLink = 'exapp://sampleOne/screenOne/id_1234_deepLink';
 
 @NuRouter()
 class SampleOneRouter extends BaseRouter {
-  @NuRoute(path: '/sampleOne/screenOne/:testId')
+  @NuRoute(path: '/screenOne/:testId')
   ScreenRoute screenOne({@required String testId}) => const ScreenRoute(
         builder: ScreenOne.builder,
       );
 
-  @NuRoute(path: '/sampleOne/screenTwo')
+  @NuRoute(path: '/screenTwo')
   ScreenRoute<int> screenTwo() => const ScreenRoute<int>(
         builder: ScreenTwo.builder,
       );
@@ -25,5 +24,3 @@ class SampleOneRouter extends BaseRouter {
   Map<RouteDef, ScreenRouteBuilder> get screensMap =>
       _$sampleOneScreensMap(this);
 }
-
-final sampleOneRouter = SampleOneRouter();

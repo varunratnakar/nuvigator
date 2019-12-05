@@ -10,22 +10,15 @@ import '../modules/sample_two/navigation/sample_two_router.dart';
 
 part 'samples_router.g.dart';
 
-@NuRouter(routeNamePrefix: '/samples')
+@NuRouter()
 class SamplesRouter extends BaseRouter {
   @override
-  WrapperFn get screensWrapper => (BuildContext context, Widget child) {
-        return Provider<SamplesBloc>.value(
-          value: SamplesBloc(),
-          child: child,
-        );
-      };
+  String get deepLinkPrefix => '/samples';
 
-  @NuRoute(path: '/samples/home')
-  ScreenRoute home() => ScreenRoute(
-        builder: (context) => HomeScreen(context),
-      );
+  @NuRoute(path: '/home')
+  ScreenRoute home() => ScreenRoute(builder: (context) => HomeScreen(context));
 
-  @NuRoute(path: '/samples/second')
+  @NuRoute(path: '/second/:testId')
   FlowRoute<SampleTwoRouter, void> second({String testId}) => FlowRoute(
         nuvigator: Nuvigator(
           router: SampleTwoRouter(),
@@ -38,17 +31,25 @@ class SamplesRouter extends BaseRouter {
         ),
       );
 
-  @NuRouter()
-  final sampleOneRouter = FlowRouter(
-    SampleOneRouter(),
-    screensType: materialScreenType,
-  );
+  @override
+  WrapperFn get screensWrapper => (BuildContext context, Widget child) {
+        return Provider<SamplesBloc>.value(
+          value: SamplesBloc(),
+          child: child,
+        );
+      };
 
   @override
   Map<RouteDef, ScreenRouteBuilder> get screensMap => _$samplesScreensMap(this);
-
-  @override
-  List<Router> get routers => _$samplesRoutersList(this);
 }
 
-final samplesRouter = SamplesRouter();
+class MainSamplesRouter extends BaseRouter {
+  @override
+  List<Router> get routers => [
+        SamplesRouter(),
+        FlowRouter(
+          SampleOneRouter(),
+          screensType: materialScreenType,
+        ),
+      ];
+}

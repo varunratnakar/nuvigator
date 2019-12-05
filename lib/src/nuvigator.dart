@@ -18,6 +18,8 @@ class Nuvigator<T extends Router> extends Navigator {
     this.inheritableObservers = const [],
   })  : assert(router != null),
         super(
+          key: (router is GlobalRouter) ? router.nuvigatorKey : key,
+          initialRoute: initialRoute,
           observers: [
             HeroController(),
             NuvigatorLogObserver(),
@@ -39,15 +41,13 @@ class Nuvigator<T extends Router> extends Navigator {
                 ?.fallbackScreenType(screenType)
                 ?.toRoute(finalSettings);
           },
-          key: (router is GlobalRouter) ? router.nuvigatorKey : key,
-          initialRoute: initialRoute,
         );
 
   Nuvigator builder(BuildContext context) {
     final settings = ModalRoute.of(context)?.settings;
     final parentNuvigator = Nuvigator.of(context);
     return copyWith(
-      initialArguments: settings?.arguments,
+      initialArguments: settings?.arguments ?? initialArguments,
       inheritableObservers: [
         ...parentNuvigator?.widget?.inheritableObservers ?? [],
         ...inheritableObservers,
@@ -189,7 +189,7 @@ class NuvigatorState<T extends Router> extends NavigatorState {
     }
   }
 
-  Future<R> openDeepLink<R>(Uri deepLink, [dynamic arguments]) {
+  Future<R> openDeepLink<R>(String deepLink, [dynamic arguments]) {
     return globalRouter.openDeepLink<R>(deepLink, arguments, false);
   }
 

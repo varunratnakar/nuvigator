@@ -7,7 +7,7 @@ import 'samples/modules/sample_one/navigation/sample_one_router.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  static final router = GlobalRouter(baseRouter: samplesRouter);
+  static final router = GlobalRouter(baseRouter: MainSamplesRouter());
 
   @override
   Widget build(BuildContext context) {
@@ -42,15 +42,13 @@ class HomeScreen extends ScreenWidget {
           FlatButton(
               child: const Text('Go to sample one with flutter navigation'),
               onPressed: () async {
-                final result = await SamplesNavigation.of(context)
-                    .sampleOneNavigation
+                final result = await SampleOneNavigation.of(context)
                     .toScreenOne(testId: 'From Home');
                 print('RESULT $result');
               }),
           FlatButton(
             child: const Text('Go to sample one with deepLink'),
-            onPressed: () =>
-                nuvigator.openDeepLink<void>(Uri.parse(screenOneDeepLink)),
+            onPressed: () => nuvigator.openDeepLink<void>(screenOneDeepLink),
           ),
           FlatButton(
             child: const Text('Go to sample two with flow'),

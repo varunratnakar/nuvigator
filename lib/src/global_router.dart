@@ -1,15 +1,14 @@
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:path_to_regexp/path_to_regexp.dart';
-import 'errors.dart';
 import 'nuvigator.dart';
 import 'router.dart';
 import 'screen_route.dart';
 
-String deepLinkString(Uri url) => url.host + url.path;
+String deepLinkString(String url) => url.split(':/').last;
 
 typedef HandleDeepLinkFn = Future<dynamic> Function(
-    GlobalRouter globalRouter, Uri uri,
+    GlobalRouter globalRouter, String uri,
     [bool isFromNative, dynamic args]);
 
 class GlobalRouterProvider extends InheritedWidget {
@@ -63,7 +62,6 @@ class GlobalRouter implements Router {
       if (onScreenNotFound != null)
         return onScreenNotFound(settings)
             ?.fallbackScreenType(nuvigator.widget.screenType);
-      throw RouteNotFoundException(settings.name);
     }
     return screen;
   }
@@ -73,11 +71,11 @@ class GlobalRouter implements Router {
     return getScreen(settings)?.toRoute(settings);
   }
 
-  Future<bool> canOpenDeepLink(Uri url) async {
+  Future<bool> canOpenDeepLink(String url) async {
     return (await getRouteEntryForDeepLink(deepLinkString(url))) != null;
   }
 
-  Future<T> openDeepLink<T>(Uri url,
+  Future<T> openDeepLink<T>(String url,
       [dynamic arguments, bool isFromNative = false]) async {
     final routeEntry = await getRouteEntryForDeepLink(deepLinkString(url));
 
@@ -113,10 +111,10 @@ class GlobalRouter implements Router {
     return route;
   }
 
-  Map<String, String> _extractParameters(Uri url, String deepLinkTemplate) {
+  Map<String, String> _extractParameters(String url, String deepLinkTemplate) {
     final parameters = <String>[];
     final regExp = pathToRegExp(deepLinkTemplate, parameters: parameters);
     final match = regExp.matchAsPrefix(deepLinkString(url));
-    return extract(parameters, match)..addAll(url.queryParameters);
+    return extract(parameters, match)..addAll(Uri.parse(url).queryParameters);
   }
 }

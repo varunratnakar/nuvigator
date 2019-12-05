@@ -8,8 +8,17 @@ import '../screen/screen_two.dart';
 
 part 'sample_two_router.g.dart';
 
-@NuRouter()
+@NuRouter(routeNamePrefix: '/samples/sampleTwo')
 class SampleTwoRouter extends BaseRouter {
+  @NuRoute(path: '/screenOne')
+  ScreenRoute<String> screenOne({String testId}) => const ScreenRoute(
+        builder: ScreenOne.builder,
+      );
+
+  @NuRoute(path: '/screenTwo')
+  ScreenRoute<String> screenTwo() =>
+      const ScreenRoute<String>(builder: ScreenTwo.builder);
+
   @override
   WrapperFn get screensWrapper => (BuildContext context, Widget screenWidget) {
         return Provider<SampleTwoBloc>.value(
@@ -17,15 +26,6 @@ class SampleTwoRouter extends BaseRouter {
           child: screenWidget,
         );
       };
-
-  @NuRoute()
-  ScreenRoute<String> screenOne({String testId}) => const ScreenRoute(
-        builder: ScreenOne.builder,
-      );
-
-  @NuRoute(pushMethods: [PushMethodType.push, PushMethodType.pushReplacement])
-  ScreenRoute<String> screenTwo() =>
-      const ScreenRoute<String>(builder: ScreenTwo.builder);
 
   @override
   Map<RouteDef, ScreenRouteBuilder> get screensMap =>
