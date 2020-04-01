@@ -185,7 +185,7 @@ abstract class Router {
       RouteEntry routeEntry, Map<String, String> arguments) {
     final routeSettings = RouteSettings(
       name: routeEntry.key.routeName,
-      isInitialRoute: false,
+      //isInitialRoute: false,
       arguments: arguments,
     );
     final screenRoute = getScreen(routeSettings)

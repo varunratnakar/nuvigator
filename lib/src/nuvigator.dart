@@ -47,8 +47,10 @@ class NuvigatorStateTracker extends NavigatorObserver {
   @override
   void didReplace({Route<dynamic> newRoute, Route<dynamic> oldRoute}) {
     final index = stack.indexOf(oldRoute);
-    stack[index] = newRoute;
-    if (debug) print('didReplace $oldRoute to $newRoute: $stackRouteNames');
+    if(index >= 0) {
+      stack[index] = newRoute;
+      if (debug) print('didReplace $oldRoute to $newRoute: $stackRouteNames');
+    }
   }
 }
 
@@ -82,7 +84,7 @@ class Nuvigator<T extends Router> extends Navigator {
           ],
           onGenerateRoute: (settings) {
             var finalSettings = settings;
-            if (settings.isInitialRoute && settings.arguments == null) {
+            if (settings.arguments == null) {
               if (initialArguments != null) {
                 finalSettings = settings.copyWith(arguments: initialArguments);
               } else if (initialDeepLink != null) {
@@ -303,7 +305,8 @@ class NuvigatorState<T extends Router> extends NavigatorState
   bool pop<T extends Object>([T result]) {
     var isPopped = false;
     if (canPop()) {
-      isPopped = super.pop<T>(result);
+      super.pop<T>(result);
+      isPopped = true;
     } else if (widget.shouldPopRoot && this == rootNuvigator) {
       isPopped = true;
       SystemNavigator.pop();
